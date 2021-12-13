@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>연락처</title>
+</head>
+<body>
+
+<h1>새 연락처</h1>
+
+<form>
+이름* : <input id="x-name" type="text"><br>
+이메일* : <input id="x-email" type="text"><br>
+연락처* : <input id="x-tel" type="text"><br>
+회사 : <input id="x-company" type="text"><br>
+(*)항목은 필수 입력 항목입니다.<br>
+<button id="x-add-btn" type="button">등록</button>
+<button id="x-cancle-btn" type="button">취소</button>
+</form>
+
+<script>
+
+
+    const form = Array.from(document.querySelectorAll('form>input'))
+    const name = document.querySelector('#x-name')
+    const email = document.querySelector('#x-email')
+    const tel = document.querySelector('#x-tel')
+    const company = document.querySelector('#x-company')
+
+
+    document.querySelector('#x-add-btn').addEventListener('click', () => {
+
+    console.log('form입니다', form)
+
+    if (form[0].value == "" || form[1].value =="" || form[2].value =="") {
+        window.alert('*은 필수입력항목입니다.')
+        return;
+    }
+
+    console.log('form입니다', form)
+
+    fetch(`/contact/add?name=${form[0].value}&email=${form[1].value}&tel=${form[2].value}&company=${form[3].value}`)
+      .then(function (response){
+      return response.json()
+    }).then(function (json){
+      console.log('json입니다', json)
+    }).catch(error => {
+      alert('서버 오류입니다.')
+      console.log(error)
+
+    })
+      window.location.href = "index.html"
+  })
+
+  document.querySelector('#x-cancle-btn').onclick = ()=> {
+      window.location.href = 'index.html'
+  }
+</script>
+
+
+
+
+</body>
+</html>
